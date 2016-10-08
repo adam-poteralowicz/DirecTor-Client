@@ -20,27 +20,19 @@ public class AuthUserActivity extends Activity {
 
     public void onClick(View view) {
         /*
-        opens the New Message screen
-         */
-        if (view.getId() == R.id.newMsgButton) {
-            Intent selectedIntent = new Intent(AuthUserActivity.this, NewMsgActivity.class);
-            startActivityForResult(selectedIntent, 0003);
-        }
-
-        /*
         opens the Inbox screen
          */
-        if (view.getId() == R.id.postLoginButton) {
+        if (view.getId() == R.id.inboxButton) {
             Intent selectedIntent = new Intent(AuthUserActivity.this, InboxActivity.class);
-            startActivityForResult(selectedIntent, 0004);
+            startActivityForResult(selectedIntent, 0003);
         }
 
         /*
         opens the Contacts List screen
          */
-        if (view.getId() == R.id.postLoginButton) {
+        if (view.getId() == R.id.contactsButton) {
             Intent selectedIntent = new Intent(AuthUserActivity.this, ContactsActivity.class);
-            startActivityForResult(selectedIntent, 0005);
+            startActivityForResult(selectedIntent, 0004);
         }
     }
 }

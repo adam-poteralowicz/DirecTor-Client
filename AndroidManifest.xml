@@ -21,6 +21,8 @@
         <activity android:name=".activity.AuthUserActivity"></activity>
         <activity android:name=".activity.ContactsActivity"></activity>
         <activity android:name=".activity.InboxActivity"></activity>
-        <activity android:name=".NewMsgActivity"></activity>
+        <activity android:name=".activity.NewMsgActivity"></activity>
+        <activity android:name=".activity.AddContactActivity"></activity>
+        <activity android:name=".activity.SingleContactActivity"></activity>
     </application>
 </manifest>

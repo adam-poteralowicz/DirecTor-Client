@@ -1,11 +1,7 @@
 package com.apap.director.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import com.apap.director.R;
 
 /**
@@ -15,17 +11,6 @@ public class ContactsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contacts_view);
-
-        ListView list = (ListView) findViewById(R.id.contactsView);
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // open conversation with a SPECIFIED contact
-                Intent selectedIntent = new Intent(ContactsActivity.this, NewMsgActivity.class);
-                startActivityForResult(selectedIntent, 0006);
-            }
-        });
 
 
     }

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.apap.director.App;
 import com.apap.director.R;
+import com.apap.director.activity.AuthUserActivity;
 import com.apap.director.activity.SingleContactActivity;
 
 import java.util.ArrayList;
@@ -19,7 +20,9 @@ import java.util.List;
 
 public class ContactsFragment extends Fragment {
 
+    AuthUserActivity aua = new AuthUserActivity();
     Intent intent;
+    List<String> my_contacts_list = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,19 +30,31 @@ public class ContactsFragment extends Fragment {
                 R.layout.contacts_view, container, false);
 
         return rootView;
+
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            my_contacts_list = aua.getContacts();
+        }
         super.onActivityCreated(savedInstanceState);
+
+
 
         ListView contactsListView = (ListView) getActivity().findViewById(R.id.contactsView);
 
-        final List<String> my_contacts_list = new ArrayList<String>();
-        my_contacts_list.add("Woland");
-        my_contacts_list.add("Behemot");
-        my_contacts_list.add("Malgorzata");
-        my_contacts_list.add("Mistrz");
+        if (my_contacts_list == null) {
+            getInitialContacts();
+
+        }
+//        //if (NEW_CONTACT_ADDED) {
+//        if (aua.getNewContact() != null) {
+//            Toast.makeText(App.getContext(), aua.getNewContact(), Toast.LENGTH_LONG).show();
+//            my_contacts_list.add(aua.getNewContact());
+//        }
+        //}
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 App.getContext(),
@@ -54,9 +69,18 @@ public class ContactsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(App.getContext(), my_contacts_list.get(position), Toast.LENGTH_LONG).show();
+                intent.putStringArrayListExtra("contacts", (ArrayList<String>) my_contacts_list);
                 intent.putExtra("contactName", my_contacts_list.get(position));
                 startActivity(intent);
             }
         });
+    }
+
+    public void getInitialContacts() {
+        my_contacts_list = new ArrayList<String>();
+        my_contacts_list.add("Woland");
+        my_contacts_list.add("Behemot");
+        my_contacts_list.add("Malgorzata");
+        my_contacts_list.add("Mistrz");
     }
 }

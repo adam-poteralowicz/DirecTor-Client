@@ -23,7 +23,7 @@ public class AddContactActivity extends Activity {
 
     public void onClick(View view) {
         if (view.getId() == R.id.addContactButton) {
-            Intent selectedIntent = new Intent(AddContactActivity.this, ContactsActivity.class);
+            Intent selectedIntent = new Intent(AddContactActivity.this, AuthUserActivity.class);
             selectedIntent.putExtra("newContactName", newContactName.getText());
             startActivityForResult(selectedIntent, 0002);
         }

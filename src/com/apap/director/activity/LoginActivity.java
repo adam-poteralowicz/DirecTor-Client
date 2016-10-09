@@ -1,9 +1,10 @@
-package com.apap.director;
+package com.apap.director.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.apap.director.R;
 
 /**
  * Created by Adam on 2016-10-05.
@@ -17,6 +18,7 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_view);
+
     }
 
     public void onClick(View view) {

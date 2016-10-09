@@ -1,4 +1,4 @@
-package com.apap.director;
+package com.apap.director.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.apap.director.NewMsgActivity;
+import com.apap.director.R;
 
 import java.util.ArrayList;
 import java.util.List;

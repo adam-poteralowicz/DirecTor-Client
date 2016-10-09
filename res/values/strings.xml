@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DirecTor-Client</string>
+    <string name="app_name">DirecTor</string>
+    <string name="title_section_1">Contacts</string>
+    <string name="title_section_2">Inbox</string>
 </resources>

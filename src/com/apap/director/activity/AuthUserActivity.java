@@ -1,21 +1,32 @@
-package com.apap.director;
+package com.apap.director.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import com.apap.director.R;
 
 /**
  * Created by Adam on 2016-10-05.
  */
-public class AuthUserActivity extends Activity {
+public class AuthUserActivity extends FragmentActivity {
+    DirecTorPagerAdapter direcTorPagerAdapter;
+    ViewPager viewPager;
+
     /**
      * Called when the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_view);
+
+        direcTorPagerAdapter = new DirecTorPagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(direcTorPagerAdapter);
+
     }
 
     public void onClick(View view) {
@@ -35,4 +46,6 @@ public class AuthUserActivity extends Activity {
             startActivityForResult(selectedIntent, 0004);
         }
     }
+
 }
+

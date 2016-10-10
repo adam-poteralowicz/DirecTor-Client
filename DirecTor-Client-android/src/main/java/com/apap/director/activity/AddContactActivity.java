@@ -1,11 +1,11 @@
-package com.apap.director.activity;
+package main.java.com.apap.director.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import com.apap.director.R;
+import main.java.com.apap.director.R;
 
 /**
  * Created by Adam on 2016-10-09.
@@ -25,7 +25,7 @@ public class AddContactActivity extends Activity {
         if (view.getId() == R.id.addContactButton) {
             Intent selectedIntent = new Intent(AddContactActivity.this, AuthUserActivity.class);
             selectedIntent.putExtra("newContactName", newContactName.getText());
-            startActivityForResult(selectedIntent, 0002);
+            startActivityForResult(selectedIntent, 0013);
         }
     }
 }

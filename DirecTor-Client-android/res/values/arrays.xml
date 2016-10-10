@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="contacts_array">
+        <item>Woland</item>
+        <item>Behemot</item>
+        <item>Mistrz</item>
+        <item>Małgorzata</item>
+        <item>Wokulski</item>
+    </string-array>
+
+</resources>

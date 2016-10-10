@@ -1,6 +1,7 @@
-package com.apap.director.fragment;
+package main.java.com.apap.director.fragment;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,24 +11,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.apap.director.App;
-import com.apap.director.R;
-import com.apap.director.activity.AuthUserActivity;
-import com.apap.director.activity.SingleContactActivity;
+import main.java.com.apap.director.App;
+import main.java.com.apap.director.R;
+import main.java.com.apap.director.activity.AuthUserActivity;
+import main.java.com.apap.director.activity.SingleContactActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsFragment extends Fragment {
 
-    AuthUserActivity aua = new AuthUserActivity();
+    public AuthUserActivity aua;
     Intent intent;
     List<String> my_contacts_list = null;
+    TypedArray another_contacts_list = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.contacts_view, container, false);
+
+        aua = (AuthUserActivity) getActivity();
 
         return rootView;
 
@@ -36,9 +40,7 @@ public class ContactsFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            my_contacts_list = aua.getContacts();
-        }
+
         super.onActivityCreated(savedInstanceState);
 
 
@@ -46,15 +48,16 @@ public class ContactsFragment extends Fragment {
         ListView contactsListView = (ListView) getActivity().findViewById(R.id.contactsView);
 
         if (my_contacts_list == null) {
-            getInitialContacts();
 
+            my_contacts_list = new ArrayList<String>();
+            another_contacts_list = App.getContext().getResources().obtainTypedArray(R.array.contacts_array);
+
+            for (int i = 0; i < another_contacts_list.length(); i++) {
+                my_contacts_list.add(String.valueOf(another_contacts_list.getString(i)));
+            }
+
+            another_contacts_list.recycle();
         }
-//        //if (NEW_CONTACT_ADDED) {
-//        if (aua.getNewContact() != null) {
-//            Toast.makeText(App.getContext(), aua.getNewContact(), Toast.LENGTH_LONG).show();
-//            my_contacts_list.add(aua.getNewContact());
-//        }
-        //}
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 App.getContext(),
@@ -74,6 +77,17 @@ public class ContactsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if (AuthUserActivity.NEW_CONTACT_ADDED) {
+            Toast.makeText(App.getContext(), aua.getNewContact(), Toast.LENGTH_LONG).show();
+            my_contacts_list.add(aua.getNewContact());
+            AuthUserActivity.NEW_CONTACT_ADDED = false;
+            arrayAdapter.notifyDataSetChanged();
+        }
+
+        Toast.makeText(App.getContext(), aua.getUserToDelete(), Toast.LENGTH_LONG).show();
+        my_contacts_list.remove(aua.getUserToDelete());
+        arrayAdapter.notifyDataSetChanged();
     }
 
     public void getInitialContacts() {

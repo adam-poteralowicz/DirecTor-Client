@@ -1,12 +1,12 @@
-package com.apap.director.adapter;
+package main.java.com.apap.director.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.apap.director.App;
-import com.apap.director.R;
-import com.apap.director.fragment.ContactsFragment;
-import com.apap.director.fragment.InboxFragment;
+import main.java.com.apap.director.App;
+import main.java.com.apap.director.R;
+import main.java.com.apap.director.fragment.ContactsFragment;
+import main.java.com.apap.director.fragment.InboxFragment;
 
 public class DirecTorPagerAdapter extends FragmentPagerAdapter {
 

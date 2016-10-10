@@ -1,4 +1,4 @@
-package com.apap.director.fragment;
+package main.java.com.apap.director.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.apap.director.App;
-import com.apap.director.R;
-import com.apap.director.activity.NewMsgActivity;
+import main.java.com.apap.director.App;
+import main.java.com.apap.director.R;
+import main.java.com.apap.director.activity.NewMsgActivity;
 
 import java.util.ArrayList;
 import java.util.List;

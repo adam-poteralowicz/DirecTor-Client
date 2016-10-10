@@ -1,4 +1,4 @@
-package com.apap.director.activity;
+package main.java.com.apap.director.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Toast;
-import com.apap.director.App;
-import com.apap.director.R;
-import com.apap.director.adapter.DirecTorPagerAdapter;
+import main.java.com.apap.director.App;
+import main.java.com.apap.director.R;
+import main.java.com.apap.director.adapter.DirecTorPagerAdapter;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,7 @@ public class AuthUserActivity extends FragmentActivity {
     DirecTorPagerAdapter direcTorPagerAdapter;
     ViewPager viewPager;
     public static boolean NEW_CONTACT_ADDED = false;
+    public static String USER_TO_DELETE = "test";
 
     /**
      * Called when the activity is first created.
@@ -55,9 +56,6 @@ public class AuthUserActivity extends FragmentActivity {
 
     public String getNewContact() {
         String newContact = getIntent().getStringExtra("newContactName");
-        if (newContact == null) {
-            return null;
-        }
 
         Toast.makeText(App.getContext(), "NEW CONTACT ADDED!", Toast.LENGTH_LONG).show();
         NEW_CONTACT_ADDED = true;
@@ -66,7 +64,13 @@ public class AuthUserActivity extends FragmentActivity {
     }
 
 
+    public String getUserToDelete() {
+        String userToDelete = getIntent().getStringExtra("contactToDelete");
+        if (userToDelete != null) {
+            USER_TO_DELETE = userToDelete;
+        }
 
-
+        return userToDelete;
+    }
 }
 

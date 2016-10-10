@@ -1,12 +1,12 @@
-package com.apap.director.activity;
+package main.java.com.apap.director.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import com.apap.director.App;
-import com.apap.director.R;
+import main.java.com.apap.director.App;
+import main.java.com.apap.director.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,14 @@ public class SingleContactActivity extends Activity {
 
     TextView contactNameView;
     ListView options;
+    Intent intent;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_contact_view);
 
         contacts = getIntent().getStringArrayListExtra("contacts");
-        String contactNameFromIntent = getIntent().getStringExtra("contactName");
+        final String contactNameFromIntent = getIntent().getStringExtra("contactName");
         contactNameView = (TextView) findViewById(R.id.contactName);
         contactNameView.setText(contactNameFromIntent);
 
@@ -35,7 +36,6 @@ public class SingleContactActivity extends Activity {
 
         myOptionsList = new ArrayList<String>();
         myOptionsList.add("Send message");
-        myOptionsList.add("See conversation");
         myOptionsList.add("Delete from contacts");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -49,6 +49,22 @@ public class SingleContactActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Toast.makeText(App.getContext(), myOptionsList.get(position), Toast.LENGTH_LONG).show();
+                switch (position) {
+                    case 0:
+                    {
+                        intent = new Intent(App.getContext(), NewMsgActivity.class);
+                        intent.putExtra("recipient", contactNameFromIntent);
+                        startActivity(intent);
+                        break;
+                    }
+                    case 1:
+                    {
+                        intent = new Intent(App.getContext(), AuthUserActivity.class);
+                        intent.putExtra("contactToDelete", contactNameFromIntent);
+                        startActivity(intent);
+                        break;
+                    }
+                }
             }
         });
 

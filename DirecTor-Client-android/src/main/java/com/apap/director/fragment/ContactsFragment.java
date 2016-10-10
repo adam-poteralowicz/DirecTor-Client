@@ -1,7 +1,6 @@
-package main.java.com.apap.director.fragment;
+package com.apap.director.fragment;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,10 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import main.java.com.apap.director.App;
-import main.java.com.apap.director.R;
-import main.java.com.apap.director.activity.AuthUserActivity;
-import main.java.com.apap.director.activity.SingleContactActivity;
+import com.apap.director.App;
+import com.apap.director.R;
+import com.apap.director.activity.AuthUserActivity;
+import com.apap.director.activity.SingleContactActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,6 @@ public class ContactsFragment extends Fragment {
     public AuthUserActivity aua;
     Intent intent;
     List<String> my_contacts_list = null;
-    TypedArray another_contacts_list = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,19 +42,12 @@ public class ContactsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
         ListView contactsListView = (ListView) getActivity().findViewById(R.id.contactsView);
 
         if (my_contacts_list == null) {
 
             my_contacts_list = new ArrayList<String>();
-            another_contacts_list = App.getContext().getResources().obtainTypedArray(R.array.contacts_array);
-
-            for (int i = 0; i < another_contacts_list.length(); i++) {
-                my_contacts_list.add(String.valueOf(another_contacts_list.getString(i)));
-            }
-
-            another_contacts_list.recycle();
+            getInitialContacts();
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(

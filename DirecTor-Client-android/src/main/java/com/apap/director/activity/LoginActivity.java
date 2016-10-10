@@ -1,11 +1,11 @@
-package main.java.com.apap.director.activity;
+package com.apap.director.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import main.java.com.apap.director.R;
+import com.apap.director.R;
 
 /**
  * Created by Adam on 2016-10-05.

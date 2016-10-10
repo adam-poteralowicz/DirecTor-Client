@@ -1,4 +1,4 @@
-package main.java.com.apap.director.activity;
+package com.apap.director.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Toast;
-import main.java.com.apap.director.App;
-import main.java.com.apap.director.R;
-import main.java.com.apap.director.adapter.DirecTorPagerAdapter;
+import com.apap.director.App;
+import com.apap.director.R;
+import com.apap.director.adapter.DirecTorPagerAdapter;
 
 import java.util.ArrayList;
 

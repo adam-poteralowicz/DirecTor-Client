@@ -1,4 +1,4 @@
-package main.java.com.apap.director;
+package com.apap.director;
 
 import android.app.Application;
 import android.content.Context;

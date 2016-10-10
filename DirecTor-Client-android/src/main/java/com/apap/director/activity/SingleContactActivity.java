@@ -1,12 +1,12 @@
-package main.java.com.apap.director.activity;
+package com.apap.director.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import main.java.com.apap.director.App;
-import main.java.com.apap.director.R;
+import com.apap.director.App;
+import com.apap.director.R;
 
 import java.util.ArrayList;
 import java.util.List;

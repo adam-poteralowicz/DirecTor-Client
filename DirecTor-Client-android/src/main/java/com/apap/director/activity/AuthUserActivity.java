@@ -11,8 +11,6 @@ import com.apap.director.adapter.DirecTorPagerAdapter;
 public class AuthUserActivity extends FragmentActivity {
     DirecTorPagerAdapter direcTorPagerAdapter;
     ViewPager viewPager;
-    public static boolean NEW_CONTACT_ADDED = false;
-    public static String USER_TO_DELETE = "test";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,33 +32,5 @@ public class AuthUserActivity extends FragmentActivity {
         }
     }
 
-//    public ArrayList<String> getContacts() {
-//
-//        ArrayList<String> contacts = getIntent().getStringArrayListExtra("contacts");
-//            if (contacts == null) {
-//                return null;
-//            }
-//
-//        return contacts;
-//    }
-
-//    public String getNewContact() {
-//        String newContact = getIntent().getStringExtra("newContactName");
-//
-//        Toast.makeText(App.getContext(), "NEW CONTACT ADDED!", Toast.LENGTH_LONG).show();
-//        NEW_CONTACT_ADDED = true;
-//
-//        return newContact;
-//    }
-
-
-    public String getUserToDelete() {
-        String userToDelete = getIntent().getStringExtra("contactToDelete");
-        if (userToDelete != null) {
-            USER_TO_DELETE = userToDelete;
-        }
-
-        return userToDelete;
-    }
 }
 

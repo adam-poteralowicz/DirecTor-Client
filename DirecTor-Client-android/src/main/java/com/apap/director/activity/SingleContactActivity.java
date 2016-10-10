@@ -7,13 +7,14 @@ import android.view.View;
 import android.widget.*;
 import com.apap.director.App;
 import com.apap.director.R;
+import com.apap.director.dao.model.ContactDao;
+import com.apap.director.dao.model.DaoSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SingleContactActivity extends Activity {
 
-    List<String> contacts = null;
     List<String> myOptionsList = null;
 
     TextView contactNameView;
@@ -24,7 +25,7 @@ public class SingleContactActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_contact_view);
 
-        contacts = getIntent().getStringArrayListExtra("contacts");
+
         final String contactNameFromIntent = getIntent().getStringExtra("contactName");
         contactNameView = (TextView) findViewById(R.id.contactName);
         contactNameView.setText(contactNameFromIntent);
@@ -56,8 +57,13 @@ public class SingleContactActivity extends Activity {
                     }
                     case 1:
                     {
+                        DaoSession daoSession = ((App) getApplicationContext()).getDaoSession();
+                        final ContactDao contactDao = daoSession.getContactDao();
+
+                        contactDao.queryBuilder().where(ContactDao.Properties.Name.eq(contactNameFromIntent))
+                                .buildDelete().executeDeleteWithoutDetachingEntities();
+
                         intent = new Intent(App.getContext(), AuthUserActivity.class);
-                        intent.putExtra("contactToDelete", contactNameFromIntent);
                         startActivity(intent);
                         break;
                     }
@@ -71,7 +77,6 @@ public class SingleContactActivity extends Activity {
     public void onBackPressed() {
 
             Intent selectedIntent = new Intent(SingleContactActivity.this, AuthUserActivity.class);
-            selectedIntent.putStringArrayListExtra("contacts", (ArrayList<String>) contacts);
             startActivityForResult(selectedIntent, 0011);
 
     }

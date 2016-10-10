@@ -12,10 +12,4 @@ public class ContactsActivity extends Activity {
 
     }
 
-//    public List<String> getMsg() {
-//        List<String> list = new ArrayList<String>();
-//
-//        // SQL query to get msgList
-//        return list;
-//    }
 }

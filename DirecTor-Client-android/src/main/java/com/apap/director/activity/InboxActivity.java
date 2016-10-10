@@ -10,11 +10,4 @@ public class InboxActivity extends Activity {
         setContentView(R.layout.inbox_view);
 
     }
-
-//    public List<String> getMsg() {
-//        List<String> list = new ArrayList<String>();
-//
-//        // SQL query to get msgList
-//        return list;
-//    }
 }

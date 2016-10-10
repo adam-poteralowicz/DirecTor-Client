@@ -9,9 +9,6 @@ import com.apap.director.R;
 
 public class LoginActivity extends Activity {
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +22,6 @@ public class LoginActivity extends Activity {
     }
 
     public void onClick(View view) {
-        /*
-        opens the Post Login screen
-         */
         if (view.getId() == R.id.postLoginButton) {
             Intent selectedIntent = new Intent(LoginActivity.this, AuthUserActivity.class);
             startActivityForResult(selectedIntent, 0002);

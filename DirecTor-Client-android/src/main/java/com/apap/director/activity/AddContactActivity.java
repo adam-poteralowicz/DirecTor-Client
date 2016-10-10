@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import com.apap.director.App;
 import com.apap.director.R;
+import com.apap.director.dao.model.Contact;
+import com.apap.director.dao.model.ContactDao;
+import com.apap.director.dao.model.DaoSession;
 
 public class AddContactActivity extends Activity {
     EditText newContactName;
@@ -20,8 +24,13 @@ public class AddContactActivity extends Activity {
 
     public void onClick(View view) {
         if (view.getId() == R.id.addContactButton) {
+            DaoSession daoSession = ((App) getApplicationContext()).getDaoSession();
+            ContactDao contactDao = daoSession.getContactDao();
+            Contact contact = new Contact();
+            contact.setName(String.valueOf(newContactName.getText()));
+            contactDao.insertOrReplace(contact);
+
             Intent selectedIntent = new Intent(AddContactActivity.this, AuthUserActivity.class);
-            selectedIntent.putExtra("newContactName", newContactName.getText());
             startActivityForResult(selectedIntent, 0013);
         }
     }

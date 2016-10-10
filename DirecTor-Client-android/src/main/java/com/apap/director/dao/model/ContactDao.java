@@ -13,7 +13,7 @@ import org.greenrobot.greendao.database.DatabaseStatement;
 /** 
  * DAO for table "CONTACT".
 */
-public class ContactDao extends AbstractDao<Contact, Void> {
+public class ContactDao extends AbstractDao<Contact, String> {
 
     public static final String TABLENAME = "CONTACT";
 
@@ -22,7 +22,7 @@ public class ContactDao extends AbstractDao<Contact, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Name = new Property(0, String.class, "name", false, "NAME");
+        public final static Property Name = new Property(0, String.class, "name", true, "NAME");
     }
 
 
@@ -38,7 +38,7 @@ public class ContactDao extends AbstractDao<Contact, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CONTACT\" (" + //
-                "\"NAME\" TEXT NOT NULL );"); // 0: name
+                "\"NAME\" TEXT PRIMARY KEY NOT NULL );"); // 0: name
     }
 
     /** Drops the underlying database table. */
@@ -60,8 +60,8 @@ public class ContactDao extends AbstractDao<Contact, Void> {
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.getString(offset + 0);
     }    
 
     @Override
@@ -78,20 +78,22 @@ public class ContactDao extends AbstractDao<Contact, Void> {
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(Contact entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final String updateKeyAfterInsert(Contact entity, long rowId) {
+        return entity.getName();
     }
     
     @Override
-    public Void getKey(Contact entity) {
-        return null;
+    public String getKey(Contact entity) {
+        if(entity != null) {
+            return entity.getName();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(Contact entity) {
-        // TODO
-        return false;
+        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
     }
 
     @Override

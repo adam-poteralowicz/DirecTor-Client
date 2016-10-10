@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import com.apap.director.R;
 
-/**
- * Created by Adam on 2016-10-09.
- */
 public class AddContactActivity extends Activity {
     EditText newContactName;
 

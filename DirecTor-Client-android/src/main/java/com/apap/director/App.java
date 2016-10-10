@@ -3,9 +3,6 @@ package com.apap.director;
 import android.app.Application;
 import android.content.Context;
 
-/**
- * Created by Adam on 2016-10-09.
- */
     public class App extends Application {
 
         private static Context mContext;

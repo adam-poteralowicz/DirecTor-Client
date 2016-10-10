@@ -11,9 +11,6 @@ import com.apap.director.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Adam on 2016-10-09.
- */
 public class SingleContactActivity extends Activity {
 
     List<String> contacts = null;

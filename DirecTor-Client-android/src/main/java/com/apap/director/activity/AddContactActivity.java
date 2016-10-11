@@ -24,14 +24,17 @@ public class AddContactActivity extends Activity {
 
     public void onClick(View view) {
         if (view.getId() == R.id.addContactButton) {
-            DaoSession daoSession = ((App) getApplicationContext()).getContactDaoSession();
-            ContactDao contactDao = daoSession.getContactDao();
-            Contact contact = new Contact();
-            contact.setName(String.valueOf(newContactName.getText()));
-            contactDao.insertOrReplace(contact);
+            if (String.valueOf(newContactName.getText()).matches(".*\\w.*")
+                    && (String.valueOf(newContactName.getText().charAt(0))).trim().length() > 0) {
+                DaoSession daoSession = ((App) getApplicationContext()).getContactDaoSession();
+                ContactDao contactDao = daoSession.getContactDao();
+                Contact contact = new Contact();
+                contact.setName(String.valueOf(newContactName.getText()));
+                contactDao.insertOrReplace(contact);
 
-            Intent selectedIntent = new Intent(AddContactActivity.this, AuthUserActivity.class);
-            startActivityForResult(selectedIntent, 0013);
+                Intent selectedIntent = new Intent(AddContactActivity.this, AuthUserActivity.class);
+                startActivityForResult(selectedIntent, 0013);
+            }
         }
     }
 

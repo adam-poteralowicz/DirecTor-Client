@@ -6,28 +6,27 @@
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
+            android:id="@+id/server"
             android:autoText="false"
             android:clickable="true"
-            android:contentDescription="Username"
+            android:contentDescription="Server"
             android:editable="true"
-            android:layout_above="@+id/passphrase"
-            android:layout_alignParentStart="true"
             android:layout_marginLeft="75dp"
-            android:layout_marginRight="75dp"/>
+            android:layout_marginRight="160dp"
+            android:layout_alignTop="@+id/port"
+            android:layout_alignParentStart="true"/>
 
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/passphrase"
+            android:id="@+id/port"
             android:clickable="true"
-            android:contentDescription="Password"
+            android:contentDescription="Port"
             android:editable="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
             android:layout_marginLeft="75dp"
             android:layout_marginRight="75dp"
-            android:layout_alignParentEnd="true"/>
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/postLoginButton"/>
 
     <Button
             android:layout_width="wrap_content"
@@ -40,4 +39,17 @@
             android:clickable="true"
             android:onClick="onClick"
             android:layout_alignParentEnd="false"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/username"
+            android:autoText="false"
+            android:clickable="true"
+            android:contentDescription="Username"
+            android:editable="true"
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="75dp"
+            android:layout_above="@+id/server"
+            android:layout_centerHorizontal="true"/>
 </RelativeLayout>

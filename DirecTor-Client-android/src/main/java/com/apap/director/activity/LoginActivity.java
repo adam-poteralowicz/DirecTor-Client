@@ -15,9 +15,11 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login_view);
 
         EditText usernameField = (EditText) findViewById(R.id.username);
-        usernameField.setHint("USERNAME");
-        EditText passwordField = (EditText) findViewById(R.id.passphrase);
-        passwordField.setHint("PASSWORD");
+        usernameField.setHint("Username");
+        EditText serverField = (EditText) findViewById(R.id.server);
+        serverField.setHint("Server");
+        EditText portField = (EditText) findViewById(R.id.port);
+        portField.setHint("Port");
 
     }
 

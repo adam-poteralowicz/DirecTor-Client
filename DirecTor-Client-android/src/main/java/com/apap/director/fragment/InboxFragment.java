@@ -13,12 +13,16 @@ import android.widget.Toast;
 import com.apap.director.App;
 import com.apap.director.R;
 import com.apap.director.activity.NewMsgActivity;
+import com.apap.director.dao.model.Conversation;
+import com.apap.director.dao.model.ConversationDao;
+import com.apap.director.dao.model.DaoSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InboxFragment extends Fragment {
 
+    // TODO: Deleting conversations manually
+    // TODO: Deleting a conversation makes all its messages delete too
     Intent intent;
 
     @Override
@@ -35,17 +39,14 @@ public class InboxFragment extends Fragment {
 
         ListView msgListView = (ListView) getActivity().findViewById(R.id.msgList);
 
-        final List<String> my_messages_list = new ArrayList<String>();
-        my_messages_list.add("Conversation 1");
-        my_messages_list.add("Conversation 2");
-        my_messages_list.add("Conversation 3");
-        my_messages_list.add("Conversation 4");
+        DaoSession daoSession = ((App) App.getContext()).getConversationDaoSession();
+        ConversationDao conversationDao = daoSession.getConversationDao();
+        final List<Conversation> conversationsList = conversationDao.loadAll();
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<Conversation> arrayAdapter = new ArrayAdapter<Conversation>(
                 App.getContext(),
                 android.R.layout.simple_list_item_1,
-                my_messages_list);
-
+                conversationsList);
         msgListView.setAdapter(arrayAdapter);
 
         intent = new Intent(App.getContext(), NewMsgActivity.class);
@@ -53,8 +54,8 @@ public class InboxFragment extends Fragment {
         msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(App.getContext(), my_messages_list.get(position), Toast.LENGTH_LONG).show();
-                intent.putExtra("msgTitle", my_messages_list.get(position));
+                Toast.makeText(App.getContext(), conversationsList.get(position).getRecipient(), Toast.LENGTH_LONG).show();
+                intent.putExtra("msgTitle", conversationsList.get(position).getRecipient());
                 startActivity(intent);
             }
         });

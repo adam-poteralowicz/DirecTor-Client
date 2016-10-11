@@ -28,7 +28,6 @@ public class ContactsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.contacts_view, container, false);
-
         aua = (AuthUserActivity) getActivity();
 
         return rootView;
@@ -40,7 +39,7 @@ public class ContactsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ListView contactsListView = (ListView) getActivity().findViewById(R.id.contactsView);
 
-        DaoSession daoSession = ((App) App.getContext()).getDaoSession();
+        DaoSession daoSession = ((App) App.getContext()).getContactDaoSession();
         ContactDao contactDao = daoSession.getContactDao();
         final List<Contact> contactsList = contactDao.loadAll();
 

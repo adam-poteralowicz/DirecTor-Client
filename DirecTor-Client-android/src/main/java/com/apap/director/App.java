@@ -8,7 +8,7 @@ import com.apap.director.dao.model.DaoSession;
 
 public class App extends Application {
 
-        public DaoSession daoSession;
+        public DaoSession contactDaoSession, conversationDaoSession, messageDaoSession;
         private static Context mContext;
 
         @Override
@@ -16,17 +16,38 @@ public class App extends Application {
             super.onCreate();
             mContext = this;
 
-            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "contact-db", null);
-            SQLiteDatabase db = helper.getWritableDatabase();
-            DaoMaster daoMaster = new DaoMaster(db);
-            daoSession = daoMaster.newSession();
+            createContactDaoSession();
+            createConversationDaoSession();
+            createMessageDaoSession();
         }
 
         public static Context getContext(){
             return mContext;
         }
+        public DaoSession getContactDaoSession() {
+            return contactDaoSession;
+        }
+        public DaoSession getConversationDaoSession() { return conversationDaoSession; }
+        public DaoSession getMessageDaoSession() { return messageDaoSession; }
 
-        public DaoSession getDaoSession() {
-            return daoSession;
+        private void createContactDaoSession() {
+            DaoMaster.DevOpenHelper contactsHelper = new DaoMaster.DevOpenHelper(this, "contact-db", null);
+            SQLiteDatabase contact_db = contactsHelper.getWritableDatabase();
+            DaoMaster contactDaoMaster = new DaoMaster(contact_db);
+            contactDaoSession = contactDaoMaster.newSession();
+        }
+
+        private void createConversationDaoSession() {
+            DaoMaster.DevOpenHelper inboxHelper = new DaoMaster.DevOpenHelper(this, "conversation-db", null);
+            SQLiteDatabase conversation_db = inboxHelper.getWritableDatabase();
+            DaoMaster conversationDaoMaster = new DaoMaster(conversation_db);
+            conversationDaoSession = conversationDaoMaster.newSession();
+        }
+
+        private void createMessageDaoSession() {
+            DaoMaster.DevOpenHelper messageHelper = new DaoMaster.DevOpenHelper(this, "message-db", null);
+            SQLiteDatabase message_db = messageHelper.getWritableDatabase();
+            DaoMaster messageDaoMaster = new DaoMaster(message_db);
+            messageDaoSession = messageDaoMaster.newSession();
         }
     }

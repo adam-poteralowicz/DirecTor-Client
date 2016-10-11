@@ -50,31 +50,39 @@ public class ContactDao extends AbstractDao<Contact, String> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, Contact entity) {
         stmt.clearBindings();
-        stmt.bindString(1, entity.getName());
+ 
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(1, name);
+        }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Contact entity) {
         stmt.clearBindings();
-        stmt.bindString(1, entity.getName());
+ 
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(1, name);
+        }
     }
 
     @Override
     public String readKey(Cursor cursor, int offset) {
-        return cursor.getString(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
     public Contact readEntity(Cursor cursor, int offset) {
         Contact entity = new Contact( //
-            cursor.getString(offset + 0) // name
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0) // name
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Contact entity, int offset) {
-        entity.setName(cursor.getString(offset + 0));
+        entity.setName(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
      }
     
     @Override
@@ -93,7 +101,7 @@ public class ContactDao extends AbstractDao<Contact, String> {
 
     @Override
     public boolean hasKey(Contact entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getName() != null;
     }
 
     @Override

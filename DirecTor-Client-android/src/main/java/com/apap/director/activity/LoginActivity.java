@@ -22,6 +22,8 @@ public class LoginActivity extends Activity {
     }
 
     public void onClick(View view) {
+        // TODO: Save new user upon first login
+
         if (view.getId() == R.id.postLoginButton) {
             Intent selectedIntent = new Intent(LoginActivity.this, AuthUserActivity.class);
             startActivityForResult(selectedIntent, 0002);

@@ -8,6 +8,8 @@ import android.widget.*;
 import com.apap.director.App;
 import com.apap.director.R;
 import com.apap.director.dao.model.ContactDao;
+import com.apap.director.dao.model.Conversation;
+import com.apap.director.dao.model.ConversationDao;
 import com.apap.director.dao.model.DaoSession;
 
 import java.util.ArrayList;
@@ -50,6 +52,13 @@ public class SingleContactActivity extends Activity {
                 switch (position) {
                     case 0:
                     {
+                        DaoSession daoSession = ((App) getApplicationContext()).getConversationDaoSession();
+                        final ConversationDao conversationDao = daoSession.getConversationDao();
+                        Conversation conversation = new Conversation();
+                        conversation.setRecipient(contactNameFromIntent);
+                        // TODO: If a conversation with that recipient already exists, do not create another conversation
+                        conversationDao.insertOrReplace(conversation);
+
                         intent = new Intent(App.getContext(), NewMsgActivity.class);
                         intent.putExtra("recipient", contactNameFromIntent);
                         startActivity(intent);
@@ -57,7 +66,7 @@ public class SingleContactActivity extends Activity {
                     }
                     case 1:
                     {
-                        DaoSession daoSession = ((App) getApplicationContext()).getDaoSession();
+                        DaoSession daoSession = ((App) getApplicationContext()).getContactDaoSession();
                         final ContactDao contactDao = daoSession.getContactDao();
 
                         contactDao.queryBuilder().where(ContactDao.Properties.Name.eq(contactNameFromIntent))

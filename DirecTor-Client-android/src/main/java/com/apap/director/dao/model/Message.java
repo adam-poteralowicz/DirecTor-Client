@@ -9,60 +9,38 @@ import org.greenrobot.greendao.annotation.*;
  */
 @Entity
 public class Message {
-
-    @Id
-    private Long id;
-
-    @NotNull
     private String sender;
-
-    @NotNull
     private String recipient;
     private String content;
     private java.util.Date date;
+    private long conversationId;
 
     @Generated
     public Message() {
     }
 
-    public Message(Long id) {
-        this.id = id;
-    }
-
     @Generated
-    public Message(Long id, String sender, String recipient, String content, java.util.Date date) {
-        this.id = id;
+    public Message(String sender, String recipient, String content, java.util.Date date, long conversationId) {
         this.sender = sender;
         this.recipient = recipient;
         this.content = content;
         this.date = date;
+        this.conversationId = conversationId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @NotNull
     public String getSender() {
         return sender;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setSender(@NotNull String sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
-    @NotNull
     public String getRecipient() {
         return recipient;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setRecipient(@NotNull String recipient) {
+    public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
 
@@ -80,6 +58,19 @@ public class Message {
 
     public void setDate(java.util.Date date) {
         this.date = date;
+    }
+
+    public long getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(long conversationId) {
+        this.conversationId = conversationId;
+    }
+
+    @Override
+    public String toString() {
+        return content;
     }
 
 }

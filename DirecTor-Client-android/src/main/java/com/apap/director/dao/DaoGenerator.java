@@ -1,13 +1,12 @@
 package com.apap.director.dao;
 
 import org.greenrobot.greendao.generator.Entity;
+import org.greenrobot.greendao.generator.Property;
 import org.greenrobot.greendao.generator.Schema;
+import org.greenrobot.greendao.generator.ToMany;
 
 import java.io.IOException;
 
-/**
- * Created by Adam on 2016-10-10.
- */
 public class DaoGenerator extends org.greenrobot.greendao.generator.DaoGenerator {
 
     public DaoGenerator() throws IOException {
@@ -18,31 +17,29 @@ public class DaoGenerator extends org.greenrobot.greendao.generator.DaoGenerator
         Schema schema = new Schema(1, "com.apap.director.dao.model");
 
         Entity contact = schema.addEntity("Contact");
-        contact.addStringProperty("name").primaryKey().notNull();
-        //Property conversationIdProperty = contact.addLongProperty("conversationId").getProperty();
+        contact.addStringProperty("name").primaryKey();
+
 
         Entity conversation = schema.addEntity("Conversation");
         conversation.addIdProperty();
-        conversation.addStringProperty("sender").notNull();
-        conversation.addStringProperty("recipient").primaryKey().notNull();
+        conversation.addStringProperty("sender");
+        conversation.addStringProperty("recipient");
 
 
         Entity message = schema.addEntity("Message");
-        message.addIdProperty();
-        message.addStringProperty("sender").notNull();
-        message.addStringProperty("recipient").notNull();
+        message.addStringProperty("sender");
+        message.addStringProperty("recipient");
         message.addStringProperty("content");
-        //Property messageDate =
-        message.addDateProperty("date").getProperty();
-        //Property conversationId = message.addLongProperty("conversationId").notNull().getProperty();
+        message.addDateProperty("date");
 
-        // one conversation == many messages
-        //ToMany conversationToMessage = conversation.addToMany(message, conversationId);
-        //conversationToMessages.setName("messages");
-        //conversationToMessage.orderAsc(messageDate);
+        // one Conversation has "many" Messages
+        Property conversationIdMessage = message.addLongProperty("conversationId").notNull().getProperty();
+        ToMany conversationToMessages = conversation.addToMany(message, conversationIdMessage);
+        conversationToMessages.setName("messages");
 
-        // one contact == one conversation
-        //contact.addToOne(conversation);
+        // Conversation has "one" Contact
+        Property contactIdProperty = conversation.addStringProperty("contactId").getProperty();
+        conversation.addToOne(contact, contactIdProperty);
 
         new DaoGenerator().generateAll(schema, "../DirecTor-Client/DirecTor-Client-android/src/main/java");
     }

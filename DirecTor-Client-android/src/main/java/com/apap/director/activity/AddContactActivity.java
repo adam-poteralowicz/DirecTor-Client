@@ -24,7 +24,7 @@ public class AddContactActivity extends Activity {
 
     public void onClick(View view) {
         if (view.getId() == R.id.addContactButton) {
-            DaoSession daoSession = ((App) getApplicationContext()).getDaoSession();
+            DaoSession daoSession = ((App) getApplicationContext()).getContactDaoSession();
             ContactDao contactDao = daoSession.getContactDao();
             Contact contact = new Contact();
             contact.setName(String.valueOf(newContactName.getText()));
@@ -34,4 +34,5 @@ public class AddContactActivity extends Activity {
             startActivityForResult(selectedIntent, 0013);
         }
     }
+
 }

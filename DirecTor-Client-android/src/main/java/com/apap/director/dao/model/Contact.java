@@ -11,7 +11,6 @@ import org.greenrobot.greendao.annotation.*;
 public class Contact {
 
     @Id
-    @NotNull
     private String name;
 
     @Generated
@@ -23,13 +22,11 @@ public class Contact {
         this.name = name;
     }
 
-    @NotNull
     public String getName() {
         return name;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setName(@NotNull String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

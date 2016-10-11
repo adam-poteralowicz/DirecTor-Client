@@ -37,6 +37,7 @@ public class SingleContactActivity extends Activity {
         myOptionsList = new ArrayList<String>();
         myOptionsList.add("Send message");
         myOptionsList.add("Delete from contacts");
+        myOptionsList.add("Return");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 App.getContext(),
@@ -73,6 +74,12 @@ public class SingleContactActivity extends Activity {
                         contactDao.queryBuilder().where(ContactDao.Properties.Name.eq(contactNameFromIntent))
                                 .buildDelete().executeDeleteWithoutDetachingEntities();
 
+                        intent = new Intent(App.getContext(), AuthUserActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case 2:
+                    {
                         intent = new Intent(App.getContext(), AuthUserActivity.class);
                         startActivity(intent);
                         break;

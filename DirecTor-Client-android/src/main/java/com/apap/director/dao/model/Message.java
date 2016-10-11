@@ -13,14 +13,16 @@ public class Message {
     private String recipient;
     private String content;
     private java.util.Date date;
-    private long conversationId;
+
+    @NotNull
+    private String conversationId;
 
     @Generated
     public Message() {
     }
 
     @Generated
-    public Message(String sender, String recipient, String content, java.util.Date date, long conversationId) {
+    public Message(String sender, String recipient, String content, java.util.Date date, String conversationId) {
         this.sender = sender;
         this.recipient = recipient;
         this.content = content;
@@ -60,11 +62,13 @@ public class Message {
         this.date = date;
     }
 
-    public long getConversationId() {
+    @NotNull
+    public String getConversationId() {
         return conversationId;
     }
 
-    public void setConversationId(long conversationId) {
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setConversationId(@NotNull String conversationId) {
         this.conversationId = conversationId;
     }
 
@@ -72,5 +76,4 @@ public class Message {
     public String toString() {
         return content;
     }
-
 }

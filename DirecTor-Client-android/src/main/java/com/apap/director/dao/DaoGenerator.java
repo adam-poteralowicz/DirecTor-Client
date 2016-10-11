@@ -21,9 +21,8 @@ public class DaoGenerator extends org.greenrobot.greendao.generator.DaoGenerator
 
 
         Entity conversation = schema.addEntity("Conversation");
-        conversation.addIdProperty();
         conversation.addStringProperty("sender");
-        conversation.addStringProperty("recipient");
+        conversation.addStringProperty("recipient").primaryKey();
 
 
         Entity message = schema.addEntity("Message");
@@ -33,7 +32,7 @@ public class DaoGenerator extends org.greenrobot.greendao.generator.DaoGenerator
         message.addDateProperty("date");
 
         // one Conversation has "many" Messages
-        Property conversationIdMessage = message.addLongProperty("conversationId").notNull().getProperty();
+        Property conversationIdMessage = message.addStringProperty("conversationId").notNull().getProperty();
         ToMany conversationToMessages = conversation.addToMany(message, conversationIdMessage);
         conversationToMessages.setName("messages");
 

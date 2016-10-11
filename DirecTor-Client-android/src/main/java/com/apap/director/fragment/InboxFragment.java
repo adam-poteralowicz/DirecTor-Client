@@ -21,8 +21,6 @@ import java.util.List;
 
 public class InboxFragment extends Fragment {
 
-    // TODO: Deleting conversations manually
-    // TODO: Deleting a conversation makes all its messages delete too
     Intent intent;
 
     @Override
@@ -34,7 +32,7 @@ public class InboxFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         ListView msgListView = (ListView) getActivity().findViewById(R.id.msgList);
@@ -43,7 +41,7 @@ public class InboxFragment extends Fragment {
         ConversationDao conversationDao = daoSession.getConversationDao();
         final List<Conversation> conversationsList = conversationDao.loadAll();
 
-        ArrayAdapter<Conversation> arrayAdapter = new ArrayAdapter<Conversation>(
+        final ArrayAdapter<Conversation> arrayAdapter = new ArrayAdapter<Conversation>(
                 App.getContext(),
                 android.R.layout.simple_list_item_1,
                 conversationsList);
@@ -57,6 +55,20 @@ public class InboxFragment extends Fragment {
                 Toast.makeText(App.getContext(), conversationsList.get(position).getRecipient(), Toast.LENGTH_LONG).show();
                 intent.putExtra("msgTitle", conversationsList.get(position).getRecipient());
                 startActivity(intent);
+            }
+        });
+
+        msgListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                DaoSession daoSession = ((App) App.getContext()).getConversationDaoSession();
+                ConversationDao conversationDao = daoSession.getConversationDao();
+                conversationDao.deleteByKey(conversationsList.get(position).getRecipient());
+                arrayAdapter.notifyDataSetChanged();
+                onActivityCreated(savedInstanceState);
+
+                return true;
             }
         });
 

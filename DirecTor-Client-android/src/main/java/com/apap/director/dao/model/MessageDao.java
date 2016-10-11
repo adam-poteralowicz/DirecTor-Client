@@ -29,7 +29,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
         public final static Property Recipient = new Property(1, String.class, "recipient", false, "RECIPIENT");
         public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
         public final static Property Date = new Property(3, java.util.Date.class, "date", false, "DATE");
-        public final static Property ConversationId = new Property(4, long.class, "conversationId", false, "CONVERSATION_ID");
+        public final static Property ConversationId = new Property(4, String.class, "conversationId", false, "CONVERSATION_ID");
     }
 
     private Query<Message> conversation_MessagesQuery;
@@ -50,7 +50,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
                 "\"RECIPIENT\" TEXT," + // 1: recipient
                 "\"CONTENT\" TEXT," + // 2: content
                 "\"DATE\" INTEGER," + // 3: date
-                "\"CONVERSATION_ID\" INTEGER NOT NULL );"); // 4: conversationId
+                "\"CONVERSATION_ID\" TEXT NOT NULL );"); // 4: conversationId
     }
 
     /** Drops the underlying database table. */
@@ -82,7 +82,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
         if (date != null) {
             stmt.bindLong(4, date.getTime());
         }
-        stmt.bindLong(5, entity.getConversationId());
+        stmt.bindString(5, entity.getConversationId());
     }
 
     @Override
@@ -108,7 +108,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
         if (date != null) {
             stmt.bindLong(4, date.getTime());
         }
-        stmt.bindLong(5, entity.getConversationId());
+        stmt.bindString(5, entity.getConversationId());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // recipient
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // content
             cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)), // date
-            cursor.getLong(offset + 4) // conversationId
+            cursor.getString(offset + 4) // conversationId
         );
         return entity;
     }
@@ -134,7 +134,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
         entity.setRecipient(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setContent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setDate(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
-        entity.setConversationId(cursor.getLong(offset + 4));
+        entity.setConversationId(cursor.getString(offset + 4));
      }
     
     @Override
@@ -150,7 +150,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
 
     @Override
     public boolean hasKey(Message entity) {
-
+        // TODO
         return false;
     }
 
@@ -160,7 +160,7 @@ public class MessageDao extends AbstractDao<Message, Void> {
     }
     
     /** Internal query to resolve the "messages" to-many relationship of Conversation. */
-    public List<Message> _queryConversation_Messages(long conversationId) {
+    public List<Message> _queryConversation_Messages(String conversationId) {
         synchronized (this) {
             if (conversation_MessagesQuery == null) {
                 QueryBuilder<Message> queryBuilder = queryBuilder();

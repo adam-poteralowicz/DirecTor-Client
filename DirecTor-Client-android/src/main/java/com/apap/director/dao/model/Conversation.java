@@ -12,10 +12,9 @@ import java.util.List;
  */
 @Entity(active = true)
 public class Conversation {
+    private String sender;
 
     @Id
-    private Long id;
-    private String sender;
     private String recipient;
     private String contactId;
 
@@ -34,7 +33,7 @@ public class Conversation {
     private transient String contact__resolvedKey;
 
     @ToMany(joinProperties = {
-        @JoinProperty(name = "id", referencedName = "conversationId")
+        @JoinProperty(name = "recipient", referencedName = "conversationId")
     })
     private List<Message> messages;
 
@@ -42,13 +41,12 @@ public class Conversation {
     public Conversation() {
     }
 
-    public Conversation(Long id) {
-        this.id = id;
+    public Conversation(String recipient) {
+        this.recipient = recipient;
     }
 
     @Generated
-    public Conversation(Long id, String sender, String recipient, String contactId) {
-        this.id = id;
+    public Conversation(String sender, String recipient, String contactId) {
         this.sender = sender;
         this.recipient = recipient;
         this.contactId = contactId;
@@ -59,14 +57,6 @@ public class Conversation {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getConversationDao() : null;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSender() {
@@ -124,7 +114,7 @@ public class Conversation {
         if (messages == null) {
             __throwIfDetached();
             MessageDao targetDao = daoSession.getMessageDao();
-            List<Message> messagesNew = targetDao._queryConversation_Messages(id);
+            List<Message> messagesNew = targetDao._queryConversation_Messages(recipient);
             synchronized (this) {
                 if(messages == null) {
                     messages = messagesNew;
@@ -181,5 +171,4 @@ public class Conversation {
     public String toString() {
         return recipient;
     }
-
 }

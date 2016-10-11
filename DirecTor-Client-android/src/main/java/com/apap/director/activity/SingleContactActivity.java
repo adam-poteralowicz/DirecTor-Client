@@ -56,8 +56,9 @@ public class SingleContactActivity extends Activity {
                         final ConversationDao conversationDao = daoSession.getConversationDao();
                         Conversation conversation = new Conversation();
                         conversation.setRecipient(contactNameFromIntent);
-                        // TODO: If a conversation with that recipient already exists, do not create another conversation
-                        conversationDao.insertOrReplace(conversation);
+                        if (conversationDao.load(contactNameFromIntent) == null) {
+                            conversationDao.insertOrReplace(conversation);
+                        }
 
                         intent = new Intent(App.getContext(), NewMsgActivity.class);
                         intent.putExtra("recipient", contactNameFromIntent);
